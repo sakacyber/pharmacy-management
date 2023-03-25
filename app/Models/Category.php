@@ -6,7 +6,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Patient extends Model
+class Category extends Model
 {
     use CrudTrait;
     use HasFactory;
@@ -18,13 +18,6 @@ class Patient extends Model
      */
     protected $fillable = [
         'name',
-        'gender',
-        'age',
-        'phone',
-        'address',
-        'description',
-        'enter_date',
-        'exit_date',
     ];
 
     /**
@@ -34,7 +27,5 @@ class Patient extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'enter_date' => 'datetime',
-        'exit_date' => 'datetime',
     ];
 }

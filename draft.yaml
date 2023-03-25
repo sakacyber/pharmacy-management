@@ -1,0 +1,46 @@
+models:
+  Patient:
+    name: string
+    gender: string
+    age: string
+    phone: string
+    address: string
+    description: string nullable
+    enter_date: datetime
+    exit_date: datetime nullable
+
+  Service:
+    name: string
+    price: double
+    description: string nullable
+    is_active: boolean
+
+  Medicine:
+    name: string
+    expired_date: date
+    description: string nullable
+    price_buy: double
+    price_sell: double
+
+  Appointment: 
+    date: datetime
+    doctor: string nullable
+    patient: string
+    description: string nullable
+    status: string
+
+  Report:
+    from_date: date
+    to_date: date
+
+  Category:
+    name: string
+
+  Currency: 
+    name: string
+    name_kh: string
+    rate: double
+
+  Discount:
+    type: string
+    amount: double

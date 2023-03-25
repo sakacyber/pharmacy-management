@@ -41,7 +41,8 @@ return [
     // ---------
 
     // Show "Getting Started with Backpack" info block?
-    'show_getting_started' => env('APP_ENV') == 'local',
+    // 'show_getting_started' => env('APP_ENV') == 'local',
+    'show_getting_started' => false,
 
     // ------
     // STYLES
@@ -125,7 +126,7 @@ return [
     'developer_link' => 'http://github.com/sakacyber',
 
     // Show powered by Laravel Backpack in the footer? true/false
-    'show_powered_by' => true,
+    'show_powered_by' => false,
 
     // -------
     // SCRIPTS

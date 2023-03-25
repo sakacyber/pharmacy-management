@@ -65,6 +65,8 @@ class ServiceCrudController extends CrudController
          * - CRUD::field('price')->type('number');
          * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
          */
+
+         CRUD::field('name')->type('text');
     }
 
     /**

@@ -43,7 +43,7 @@
                 <span class="input-group-text"><i class="fas fa-user text-white"></i></span>
               </div>
               <input name="username" type="text" class="form-control" placeholder="username" onkeyup="validate();" required>
-            </div> <!--input-group class -->
+            </div> <!--input-group class -->,
             <div class="input-group form-group">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-key text-white"></i></span>

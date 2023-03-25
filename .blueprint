@@ -1,0 +1,34 @@
+created:
+    - database/factories/PatientFactory.php
+    - database/factories/ServiceFactory.php
+    - database/factories/MedicineFactory.php
+    - database/factories/AppointmentFactory.php
+    - database/factories/ReportFactory.php
+    - database/factories/CategoryFactory.php
+    - database/factories/CurrencyFactory.php
+    - database/factories/DiscountFactory.php
+    - database/migrations/2023_03_25_181528_create_patients_table.php
+    - database/migrations/2023_03_25_181529_create_services_table.php
+    - database/migrations/2023_03_25_181530_create_medicines_table.php
+    - database/migrations/2023_03_25_181531_create_appointments_table.php
+    - database/migrations/2023_03_25_181532_create_reports_table.php
+    - database/migrations/2023_03_25_181533_create_categories_table.php
+    - database/migrations/2023_03_25_181534_create_currencies_table.php
+    - database/migrations/2023_03_25_181535_create_discounts_table.php
+    - app/Models/Patient.php
+    - app/Models/Service.php
+    - app/Models/Medicine.php
+    - app/Models/Appointment.php
+    - app/Models/Report.php
+    - app/Models/Category.php
+    - app/Models/Currency.php
+    - app/Models/Discount.php
+models:
+    Patient: { name: string, gender: string, age: string, phone: string, address: string, description: 'string nullable', enter_date: datetime, exit_date: 'datetime nullable' }
+    Service: { name: string, price: double, description: 'string nullable', is_active: boolean }
+    Medicine: { name: string, expired_date: date, description: 'string nullable', price_buy: double, price_sell: double }
+    Appointment: { date: datetime, doctor: 'string nullable', patient: string, description: 'string nullable', status: string }
+    Report: { from_date: date, to_date: date }
+    Category: { name: string }
+    Currency: { name: string, name_kh: string, rate: double }
+    Discount: { type: string, amount: double }

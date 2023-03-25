@@ -6,7 +6,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Patient extends Model
+class Discount extends Model
 {
     use CrudTrait;
     use HasFactory;
@@ -17,14 +17,8 @@ class Patient extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'gender',
-        'age',
-        'phone',
-        'address',
-        'description',
-        'enter_date',
-        'exit_date',
+        'type',
+        'amount',
     ];
 
     /**
@@ -34,7 +28,6 @@ class Patient extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'enter_date' => 'datetime',
-        'exit_date' => 'datetime',
+        'amount' => 'double',
     ];
 }
