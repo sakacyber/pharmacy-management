@@ -6,6 +6,8 @@ use App\Http\Requests\AppointmentRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
+use Backpack\CRUD\app\Library\Widget;
+
 /**
  * Class AppointmentCrudController
  * @package App\Http\Controllers\Admin
@@ -29,6 +31,8 @@ class AppointmentCrudController extends CrudController
         CRUD::setModel(\App\Models\Appointment::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/appointment');
         CRUD::setEntityNameStrings('appointment', 'appointments');
+
+        // $this->crud->enableExportButtons();
     }
 
     /**
@@ -46,6 +50,43 @@ class AppointmentCrudController extends CrudController
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
          */
+
+         CRUD::column('date')->type('date');
+         CRUD::column('doctor');
+         CRUD::column('patient');
+         CRUD::column('status');
+         CRUD::column('description');
+
+
+        // dynamic data to render in the following widget
+        $userCount = \App\Models\Appointment::count();
+
+        //add div row using 'div' widget and make other widgets inside it to be in a row
+        Widget::add()->to('before_content')->type('div')->class('row')->content([
+
+        //widget made using fluent syntax
+        Widget::make()
+            ->type('progress')
+            ->class('card border-0 text-white bg-primary')
+            ->progressClass('progress-bar')
+            ->value($userCount)
+            ->description('Registered users.')
+            ->progress(100 * (int)$userCount / 1000)
+            ->hint(1000 - $userCount . ' more until next milestone.'),
+
+        //widget made using the array definition 
+        Widget::make(
+            [
+                'type'       => 'card',
+                'class'   => 'card bg-dark text-white',
+                'wrapper' => ['class' => 'col-sm-3 col-md-3'],
+                'content'    => [
+                    'header' => 'Example Widget',
+                    'body'   => 'Widget placed at "before_content" secion in same row',
+                ]
+            ]
+        ),
+    ]);
     }
 
     /**

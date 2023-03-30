@@ -2,17 +2,20 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use \Venturecraft\Revisionable\RevisionableTrait;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+
 class User extends Authenticatable
 {
     use CrudTrait;
     use HasApiTokens, HasFactory, Notifiable;
+    use RevisionableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -43,4 +46,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function identifiableName()
+    {
+        return $this->name;
+    }
 }

@@ -46,6 +46,10 @@ class ServiceCrudController extends CrudController
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
          */
+
+         CRUD::column('name');
+         CRUD::column('price')->type('number')->suffix(" KHR");
+         CRUD::column('#')->type('row_number')->makeFirstColumn();
     }
 
     /**
@@ -66,7 +70,14 @@ class ServiceCrudController extends CrudController
          * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
          */
 
-         CRUD::field('name')->type('text');
+        //  CRUD::field('name')->type('text');
+        //  CRUD::field('price')->type('double');
+        //  CRUD::field('description')->type('text');
+
+        CRUD::field('name');
+        CRUD::field('price');
+        CRUD::field('description');
+
     }
 
     /**
