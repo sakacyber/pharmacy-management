@@ -46,6 +46,13 @@ class MedicineCrudController extends CrudController
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
          */
+
+         CRUD::column('#')->type('row_number');
+         CRUD::column('name');
+         CRUD::column('expired_date');
+         CRUD::column('price_buy')->type('number');
+         CRUD::column('price_sell')->type('number');
+         CRUD::column('description');
     }
 
     /**

@@ -51,6 +51,7 @@ class AppointmentCrudController extends CrudController
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
          */
 
+         CRUD::column('#')->type('row_number');
          CRUD::column('date')->type('date');
          CRUD::column('doctor');
          CRUD::column('patient');

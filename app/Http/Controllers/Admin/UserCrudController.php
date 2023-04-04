@@ -40,6 +40,7 @@ class UserCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::column('#')->type('row_number');
         CRUD::column('name');
         CRUD::column('email');
         // CRUD::column('password');

@@ -241,7 +241,7 @@ return [
         // "kk_Cyrl_KZ" => "Kazakh (Cyrillic, Kazakhstan)",
         // "kk" => "Kazakh",
         // "km_KH" => "Khmer (Cambodia)",
-        // "km" => "Khmer",
+         "km" => "Khmer",
         // "ki_KE" => "Kikuyu (Kenya)",
         // "ki" => "Kikuyu",
         // "rw_RW" => "Kinyarwanda (Rwanda)",

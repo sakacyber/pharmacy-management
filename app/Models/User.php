@@ -10,12 +10,14 @@ use Laravel\Sanctum\HasApiTokens;
 
 use \Venturecraft\Revisionable\RevisionableTrait;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use CrudTrait;
     use HasApiTokens, HasFactory, Notifiable;
     use RevisionableTrait;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.

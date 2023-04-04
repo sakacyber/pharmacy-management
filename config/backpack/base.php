@@ -86,7 +86,7 @@ return [
     // ------
 
     // Menu logo. You can replace this with an <img> tag if you have a logo.
-    'project_logo'   => '<b>Pharmacy</b>',
+    'project_logo'   => '<b>My Pharmacy</b>',
 
     // Show / hide breadcrumbs on admin panel pages.
     'breadcrumbs' => true,
@@ -95,6 +95,10 @@ return [
     'header_class' => 'app-header bg-light border-0 navbar',
     // For background colors use: bg-dark, bg-primary, bg-secondary, bg-danger, bg-warning, bg-success, bg-info, bg-blue, bg-light-blue, bg-indigo, bg-purple, bg-pink, bg-red, bg-orange, bg-yellow, bg-green, bg-teal, bg-cyan, bg-white
     // For links to be visible on different background colors use: "navbar-dark", "navbar-light", "navbar-color"
+
+    // Skin color 
+    //
+    'skin' => 'skin-blue',
 
     // ----
     // BODY

@@ -47,9 +47,9 @@ class ServiceCrudController extends CrudController
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
          */
 
+         CRUD::column('#')->type('row_number');
          CRUD::column('name');
          CRUD::column('price')->type('number')->suffix(" KHR");
-         CRUD::column('#')->type('row_number')->makeFirstColumn();
     }
 
     /**
