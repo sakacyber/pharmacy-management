@@ -2,9 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\Medicine;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MedicineFactory extends Factory
 {
