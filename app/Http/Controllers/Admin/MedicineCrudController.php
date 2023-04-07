@@ -47,9 +47,9 @@ class MedicineCrudController extends CrudController
          */
         CRUD::column('#')->type('row_number');
         CRUD::column('name');
-        CRUD::column('expired_date');
         CRUD::column('price_buy')->type('number');
         CRUD::column('price_sell')->type('number');
+        CRUD::column('expired_date');
         CRUD::column('description');
     }
 
@@ -69,6 +69,11 @@ class MedicineCrudController extends CrudController
          * - CRUD::field('price')->type('number');
          * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
+        CRUD::field('name');
+        CRUD::field('expired_date')->type('date');
+        CRUD::field('price_buy');
+        CRUD::field('price_sell');
+        CRUD::field('description');
     }
 
     /**

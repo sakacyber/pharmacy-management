@@ -22,6 +22,7 @@ class ReportFactory extends Factory
         return [
             'from_date' => $this->faker->date(),
             'to_date' => $this->faker->date(),
+            'content' => $this->faker->paragraphs(3, true),
         ];
     }
 }

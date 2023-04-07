@@ -22,3 +22,4 @@
 <li class='nav-item'><a class='nav-link' href="{{ backpack_url('setting') }}"><i class='nav-icon la la-cog'></i> <span>Settings</span></a></li>
 @include('backpack-database-notifications::sidebarMenuItem')
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('log') }}'><i class='nav-icon la la-terminal'></i> Logs</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('invoice') }}"><i class="nav-icon la la-question"></i> Invoices</a></li>

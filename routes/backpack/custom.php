@@ -22,4 +22,5 @@ Route::crud('user', 'UserCrudController');
     Route::crud('medicine', 'MedicineCrudController');
     Route::crud('report', 'ReportCrudController');
     Route::crud('service', 'ServiceCrudController');
+    Route::crud('invoice', 'InvoiceCrudController');
 }); // this should be the absolute last line of this file

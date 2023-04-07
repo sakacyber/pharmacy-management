@@ -25,6 +25,7 @@ class AppointmentFactory extends Factory
             'patient' => $this->faker->word,
             'description' => $this->faker->text,
             'status' => $this->faker->word,
+            'is_active' => $this->faker->boolean,
         ];
     }
 }

@@ -31,7 +31,9 @@ class AppointmentCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix').'/appointment');
         CRUD::setEntityNameStrings('appointment', 'appointments');
 
-        // $this->crud->enableExportButtons();
+        // CRUD::enableExportButtons();
+        // CRUD::moveButton('add', 'after', 'delete');
+        $this->crud->addButtonFromView('top', 'add', 'add', 'end');
     }
 
     /**

@@ -22,6 +22,7 @@ class Appointment extends Model
         'patient',
         'description',
         'status',
+        'is_active',
     ];
 
     /**
@@ -32,5 +33,6 @@ class Appointment extends Model
     protected $casts = [
         'id' => 'integer',
         'date' => 'datetime',
+        'is_active' => 'boolean',
     ];
 }

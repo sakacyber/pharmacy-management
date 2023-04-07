@@ -3,32 +3,36 @@ created:
     - database/factories/ServiceFactory.php
     - database/factories/MedicineFactory.php
     - database/factories/AppointmentFactory.php
+    - database/factories/InvoiceFactory.php
     - database/factories/ReportFactory.php
     - database/factories/CategoryFactory.php
     - database/factories/CurrencyFactory.php
     - database/factories/DiscountFactory.php
-    - database/migrations/2023_03_25_181528_create_patients_table.php
-    - database/migrations/2023_03_25_181529_create_services_table.php
-    - database/migrations/2023_03_25_181530_create_medicines_table.php
-    - database/migrations/2023_03_25_181531_create_appointments_table.php
-    - database/migrations/2023_03_25_181532_create_reports_table.php
-    - database/migrations/2023_03_25_181533_create_categories_table.php
-    - database/migrations/2023_03_25_181534_create_currencies_table.php
-    - database/migrations/2023_03_25_181535_create_discounts_table.php
+    - database/migrations/2023_04_07_145512_create_patients_table.php
+    - database/migrations/2023_04_07_145513_create_services_table.php
+    - database/migrations/2023_04_07_145514_create_medicines_table.php
+    - database/migrations/2023_04_07_145515_create_appointments_table.php
+    - database/migrations/2023_04_07_145516_create_invoices_table.php
+    - database/migrations/2023_04_07_145517_create_reports_table.php
+    - database/migrations/2023_04_07_145518_create_categories_table.php
+    - database/migrations/2023_04_07_145519_create_currencies_table.php
+    - database/migrations/2023_04_07_145520_create_discounts_table.php
     - app/Models/Patient.php
     - app/Models/Service.php
     - app/Models/Medicine.php
     - app/Models/Appointment.php
+    - app/Models/Invoice.php
     - app/Models/Report.php
     - app/Models/Category.php
     - app/Models/Currency.php
     - app/Models/Discount.php
 models:
-    Patient: { name: string, gender: string, age: string, phone: string, address: string, description: 'string nullable', enter_date: datetime, exit_date: 'datetime nullable' }
-    Service: { name: string, price: double, description: 'string nullable', is_active: boolean }
+    Patient: { name: string, gender: string, age: string, phone: 'string nullable', address: 'string nullable', description: 'string nullable', enter_date: datetime, exit_date: 'datetime nullable' }
+    Service: { name: string, price: double, description: 'string nullable', is_active: 'boolean default:true' }
     Medicine: { name: string, expired_date: date, description: 'string nullable', price_buy: double, price_sell: double }
-    Appointment: { date: datetime, doctor: 'string nullable', patient: string, description: 'string nullable', status: string }
-    Report: { from_date: date, to_date: date }
+    Appointment: { date: datetime, doctor: 'string nullable', patient: string, description: 'string nullable', status: string, is_active: 'boolean default:true' }
+    Report: { from_date: date, to_date: date, content: string }
     Category: { name: string }
     Currency: { name: string, name_kh: string, rate: double }
     Discount: { type: string, amount: double }
+    Invoice: { invoice_no: string, date: datetime, tax: integer, discount: 'integer default:0', total: 'integer default:0', description: 'string nullable', note: 'string nullable', header: 'string nullable', footer: 'string nullable', relationships: { belongsTo: \App\Models\User } }

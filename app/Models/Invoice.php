@@ -5,11 +5,12 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Report extends Model
+class Invoice extends Model
 {
-    use CrudTrait;
     use HasFactory;
+    use CrudTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -17,8 +18,16 @@ class Report extends Model
      * @var array
      */
     protected $fillable = [
-        'from_date',
-        'to_date',
+        'invoice_no',
+        'date',
+        'tax',
+        'discount',
+        'total',
+        'description',
+        'note',
+        'header',
+        'footer',
+        'user_id',
         'content',
     ];
 
@@ -29,7 +38,11 @@ class Report extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'from_date' => 'date',
-        'to_date' => 'date',
+        'date' => 'datetime',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

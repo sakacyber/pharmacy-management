@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\PatientRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Carbon\Carbon;
 
 /**
  * Class PatientCrudController
@@ -47,7 +48,7 @@ class PatientCrudController extends CrudController
          */
         CRUD::column('#')->type('row_number');
         CRUD::column('name');
-        CRUD::column('gender');
+        CRUD::column('gender')->type('select_from_array')->options(['male' => 'Male', 'female' => 'Female', 'other' => 'Other']);
         CRUD::column('age');
         CRUD::column('address');
         CRUD::column('enter_date');
@@ -70,6 +71,15 @@ class PatientCrudController extends CrudController
          * - CRUD::field('price')->type('number');
          * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
+        $currentTimestamp = Carbon::now('Asia/Phnom_Penh');
+
+        CRUD::field('name');
+        CRUD::field('gender')->type('select_from_array')->options(['male' => 'Male', 'female' => 'Female', 'other' => 'Other']);
+        CRUD::field('age')->type('number');
+        CRUD::field('phone');
+        CRUD::field('address');
+        CRUD::field('description');
+        CRUD::field('enter_date')->value($currentTimestamp);
     }
 
     /**
@@ -81,6 +91,11 @@ class PatientCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::field('name');
+        CRUD::field('gender')->type('select_from_array')->options(['male' => 'Male', 'female' => 'Female', 'other' => 'Other']);
+        CRUD::field('age')->type('number');
+        CRUD::field('phone');
+        CRUD::field('address');
+        CRUD::field('description');
     }
 }
