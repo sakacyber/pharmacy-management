@@ -10,7 +10,8 @@ class Discount extends Model
 {
     use CrudTrait;
     use HasFactory;
-
+    use \Venturecraft\Revisionable\RevisionableTrait;
+    
     /**
      * The attributes that are mass assignable.
      *

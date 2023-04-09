@@ -10,6 +10,7 @@ class Service extends Model
 {
     use CrudTrait;
     use HasFactory;
+    use \Venturecraft\Revisionable\RevisionableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -33,4 +34,14 @@ class Service extends Model
         'price' => 'double',
         'is_active' => 'boolean',
     ];
+
+    public function identifiableName()
+    {
+        return $this->name;
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+    }
 }

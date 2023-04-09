@@ -17,7 +17,6 @@
   </head>
   <body>
     <!-- including side navigations -->
-    <?php include("sections/sidenav.html"); ?>
     <div class="container-fluid">
       <div class="container">
         <!-- header section -->

@@ -17,7 +17,8 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
     use RevisionableTrait;
     use HasRoles;
-
+    use \Venturecraft\Revisionable\RevisionableTrait;
+    
     /**
      * The attributes that are mass assignable.
      *

@@ -19,7 +19,8 @@ class AppointmentCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-
+    use \Backpack\ReviseOperation\ReviseOperation;
+    
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      *
@@ -32,8 +33,6 @@ class AppointmentCrudController extends CrudController
         CRUD::setEntityNameStrings('appointment', 'appointments');
 
         // CRUD::enableExportButtons();
-        // CRUD::moveButton('add', 'after', 'delete');
-        $this->crud->addButtonFromView('top', 'add', 'add', 'end');
     }
 
     /**
@@ -69,9 +68,9 @@ class AppointmentCrudController extends CrudController
                 ->class('card border-0 text-white bg-primary')
                 ->progressClass('progress-bar')
                 ->value($userCount)
-                ->description('Registered users.')
-                ->progress(100 * (int) $userCount / 1000)
-                ->hint(1000 - $userCount.' more until next milestone.'),
+                ->description('Appointment schedule.')
+                ->progress(100 * (int) $userCount / 100)
+                ->hint(100 - $userCount.' more until next milestone.'),
 
             //widget made using the array definition
             Widget::make(
@@ -104,6 +103,12 @@ class AppointmentCrudController extends CrudController
          * - CRUD::field('price')->type('number');
          * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
+
+        CRUD::field('date')->type('date');
+        CRUD::field('doctor');
+        CRUD::field('patient');
+        CRUD::field('status');
+        CRUD::field('description');
     }
 
     /**

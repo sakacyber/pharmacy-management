@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\UserRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 
 /**
  * Class UserCrudController
@@ -41,16 +42,46 @@ class UserCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('#')->type('row_number');
-        CRUD::column('name');
-        CRUD::column('email');
-        // CRUD::column('password');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
+
+         CRUD::column('#')->type('row_number');
+         CRUD::column('name');
+         CRUD::column('email');
+
+         // dynamic data to render in the following widget
+        $count = \App\Models\User::count();
+
+        //add div row using 'div' widget and make other widgets inside it to be in a row
+        Widget::add()->to('before_content')->type('div')->class('row')->content([
+
+            //widget made using fluent syntax
+            Widget::make()
+                ->type('progress')
+                ->class('card border-0 text-white bg-primary')
+                ->progressClass('progress-bar')
+                ->value($count)
+                ->description('User listed')
+                ->progress(100 * (int) $count / 100)
+                ->hint(100 - $count.' more until next milestone.'),
+
+            //widget made using the array definition
+            Widget::make(
+                [
+                    'type' => 'card',
+                    'class' => 'card bg-dark text-white',
+                    'wrapper' => ['class' => 'col-sm-3 col-md-3'],
+                    'content' => [
+                        'header' => 'Example Widget',
+                        'body' => 'Widget placed at "before_content" secion in same row',
+                    ],
+                ]
+            ),
+        ]);
     }
 
     /**

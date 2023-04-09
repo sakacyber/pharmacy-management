@@ -11,7 +11,8 @@ class Invoice extends Model
 {
     use HasFactory;
     use CrudTrait;
-
+    use \Venturecraft\Revisionable\RevisionableTrait;
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -44,5 +45,14 @@ class Invoice extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function previewInvoice(){
+        return '<a class="btn btn-sm btn-link" target="_blank" href="http://google.com?q='.urlencode($this->text).'" data-toggle="tooltip" title="Just a demo custom button."><i class="la la-search"></i> Preview invoice</a>';
+    }
+
+    public function identifiableName()
+    {
+        return $this->name;
     }
 }
