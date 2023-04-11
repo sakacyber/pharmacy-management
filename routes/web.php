@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::get('/my-profile', function () {
     return view('my_profile');
 });
+
+Route::group(['prefix' => '/filemanager'], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});

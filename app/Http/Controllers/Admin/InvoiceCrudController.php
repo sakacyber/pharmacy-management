@@ -48,6 +48,9 @@ class InvoiceCrudController extends CrudController
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
+
+        $this->crud->orderBy('date', 'desc');
+
         CRUD::column('#')->type('row_number');
         CRUD::column('invoice_no');
         CRUD::column('content');
@@ -65,36 +68,50 @@ class InvoiceCrudController extends CrudController
         CRUD::column('date');
 
         // add a button; possible types are: view, model_function
-        $this->crud->addButtonFromModelFunction('line', 'preview_invoice', 'previewInvoice', 'beginning');
+        $this->crud->addButtonFromView('line', 'button-view-invoice', 'viewInvoice', 'beginning');
 
-        // dynamic data to render in the following widget
-        $count = \App\Models\Invoice::count();
+        // Get the current month and year
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+
+        // Count users for the current month
+        $count = \App\Models\Invoice::whereMonth('date', $currentMonth)
+                    ->whereYear('date', $currentYear)
+                    ->count();
+
+        $firstDayOfLastMonth = now()->subMonth()->startOfMonth();
+
+        // Get the date for the last day of the previous month
+        $lastDayOfLastMonth = now()->subMonth()->endOfMonth();
+        $countLastMonth = \App\Models\Invoice::whereBetween('date', [$firstDayOfLastMonth, $lastDayOfLastMonth])
+                ->count();
 
         //add div row using 'div' widget and make other widgets inside it to be in a row
-        Widget::add()->to('before_content')->type('div')->class('row')->content([
+        Widget::add()
+        ->to('before_content')
+        ->type('div')
+        ->class('row')
+        ->content([
 
             //widget made using fluent syntax
             Widget::make()
-                ->type('progress')
-                ->class('card border-0 text-white bg-primary')
-                ->progressClass('progress-bar')
+                ->type('progress_white')
+                ->class('card border-0')
+                ->progressClass('progress-bar bg-primary')
                 ->value($count)
-                ->description('Invoice generated.')
+                ->description('Invoice generated this month.')
                 ->progress(100 * (int) $count / 100)
                 ->hint(100 - $count.' more until next milestone.'),
 
-            //widget made using the array definition
-            Widget::make(
-                [
-                    'type' => 'card',
-                    'class' => 'card bg-dark text-white',
-                    'wrapper' => ['class' => 'col-sm-3 col-md-3'],
-                    'content' => [
-                        'header' => 'Example Widget',
-                        'body' => 'Widget placed at "before_content" secion in same row',
-                    ],
-                ]
-            ),
+            //widget made using fluent syntax
+            Widget::make()
+            ->type('progress_white')
+            ->class('card border-0')
+            ->progressClass('progress-bar bg-primary')
+            ->value($countLastMonth)
+            ->description('Invoice generated last month.')
+            ->progress(100 * (int) $countLastMonth / 100)
+            ->hint(100 - $countLastMonth.' more until next milestone.'),
         ]);
     }
 
@@ -136,11 +153,6 @@ class InvoiceCrudController extends CrudController
                 // optional - manually specify the related model and attribute
                 'model' => "App\Models\User", // related model
                 'attribute' => 'name', // foreign key attribute that is shown to user
-
-                // optional - force the related options to be a custom query, instead of all();
-                'options' => (function ($query) {
-                    return $query->orderBy('name', 'ASC')->get();
-                }), //  you can use this to filter the results show in the select
             ],
         );
     }
@@ -173,12 +185,12 @@ class InvoiceCrudController extends CrudController
                 // optional - manually specify the related model and attribute
                 'model' => "App\Models\User", // related model
                 'attribute' => 'name', // foreign key attribute that is shown to user
-
-                // optional - force the related options to be a custom query, instead of all();
-                'options' => (function ($query) {
-                    return $query->orderBy('name', 'ASC')->get();
-                }), //  you can use this to filter the results show in the select
             ],
         );
+    }
+
+    public function viewInvoice($id){
+        $invoice = \App\Models\Invoice::find($id);
+        return view('invoice', ['invoice'=>$invoice]);
     }
 }

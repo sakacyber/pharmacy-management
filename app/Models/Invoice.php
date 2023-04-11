@@ -47,9 +47,9 @@ class Invoice extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function previewInvoice(){
-        return '<a class="btn btn-sm btn-link" target="_blank" href="http://google.com?q='.urlencode($this->text).'" data-toggle="tooltip" title="Just a demo custom button."><i class="la la-search"></i> Preview invoice</a>';
-    }
+    // public function previewInvoice($id){
+    //     return '<a class="btn btn-sm btn-link" target="_blank" href="url('invoice/id/view')" data-toggle="tooltip"><i class="la la-eye"></i> Invoice</a>';
+    // }
 
     public function identifiableName()
     {

@@ -48,6 +48,9 @@ class PatientCrudController extends CrudController
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
+
+         $this->crud->orderBy('enter_date', 'desc');
+
         CRUD::column('#')->type('row_number');
         CRUD::column('name');
         CRUD::column('gender')->type('select_from_array')->options(['male' => 'Male', 'female' => 'Female', 'other' => 'Other']);
@@ -57,33 +60,53 @@ class PatientCrudController extends CrudController
         CRUD::column('description');
 
         // dynamic data to render in the following widget
-        $count = \App\Models\Patient::count();
+        // $count = \App\Models\Patient::count();
+        // $countLastMonth = \App\Models\Patient::count();
+
+        // Get the current month and year
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+
+        // Count users for the current month
+        $count = \App\Models\Patient::whereMonth('enter_date', $currentMonth)
+                    ->whereYear('enter_date', $currentYear)
+                    ->count();
+
+        // Count users for the previous month
+        // Get the date for the first day of the previous month
+        $firstDayOfLastMonth = now()->subMonth()->startOfMonth();
+
+        // Get the date for the last day of the previous month
+        $lastDayOfLastMonth = now()->subMonth()->endOfMonth();
+        $countLastMonth = \App\Models\Patient::whereBetween('enter_date', [$firstDayOfLastMonth, $lastDayOfLastMonth])
+                ->count();
 
         //add div row using 'div' widget and make other widgets inside it to be in a row
-        Widget::add()->to('before_content')->type('div')->class('row')->content([
+        Widget::add()
+        ->to('before_content')
+        ->type('div')
+        ->class('row')
+        ->content([
 
             //widget made using fluent syntax
             Widget::make()
-                ->type('progress')
-                ->class('card border-0 text-white bg-primary')
-                ->progressClass('progress-bar')
+                ->type('progress_white')
+                ->class('card')
                 ->value($count)
-                ->description('Patient listed.')
+                ->description('New patients this month')
                 ->progress(100 * (int) $count / 100)
+                ->progressClass('progress-bar bg-primary')
                 ->hint(100 - $count.' more until next milestone.'),
 
             //widget made using the array definition
-            Widget::make(
-                [
-                    'type' => 'card',
-                    'class' => 'card bg-dark text-white',
-                    'wrapper' => ['class' => 'col-sm-3 col-md-3'],
-                    'content' => [
-                        'header' => 'Example Widget',
-                        'body' => 'Widget placed at "before_content" secion in same row',
-                    ],
-                ]
-            ),
+            Widget::make()
+                ->type('progress_white')
+                ->class('card')
+                ->value($countLastMonth)
+                ->description('New patients last month')
+                ->progress(100 * (int) $countLastMonth / 100)
+                ->progressClass('progress-bar bg-primary')
+                ->hint(100 - $countLastMonth.' more until next milestone.'),
         ]);
     }
 
@@ -129,5 +152,6 @@ class PatientCrudController extends CrudController
         CRUD::field('phone');
         CRUD::field('address');
         CRUD::field('description');
+        CRUD::field('enter_date')->type('datetime');
     }
 }
