@@ -15,14 +15,19 @@ Route::group([
         (array) config('backpack.base.middleware_key', 'admin')
     ),
     'namespace' => 'App\Http\Controllers\Admin',
-], function () { // custom admin routes
-Route::crud('user', 'UserCrudController');
+], function () { 
+    
+    // custom admin routes
+    Route::crud('user', 'UserCrudController');
     Route::crud('patient', 'PatientCrudController');
     Route::crud('appointment', 'AppointmentCrudController');
     Route::crud('medicine', 'MedicineCrudController');
     Route::crud('report', 'ReportCrudController');
     Route::crud('service', 'ServiceCrudController');
     Route::crud('invoice', 'InvoiceCrudController');
+
+    // custom
     Route::get('invoice/{id}/view', 'InvoiceCrudController@viewInvoice');
     Route::get('dashboard', 'DashboardController@index');
+    
 }); // this should be the absolute last line of this file

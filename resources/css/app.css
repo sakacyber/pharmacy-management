@@ -1,0 +1,16 @@
+.table-text {
+    /* vertical-align: middle; */
+    display: block;
+    display: -webkit-box;
+    /* Relates to display width */
+    -webkit-box-orient: vertical;
+    /* Your line height */
+    line-height: 1em;
+    /* Double your line height
+    for max-height to have 2 lines */
+    max-height: 2em;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: aquamarine;
+}

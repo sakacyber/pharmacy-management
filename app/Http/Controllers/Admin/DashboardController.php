@@ -9,7 +9,19 @@ class DashboardController extends Controller
 {
     //
 
-    public function index() {
-        return view('dashboard');
+    public function index()
+    {
+        $users = \App\Models\Patient::paginate(25);
+        $appointments = \App\Models\Appointment::paginate(25);
+        return view('vendor.backpack.base.dashboard', [
+            'users' => $users,
+            'appointments' => $appointments,
+        ]);
+    }
+
+    public function getListUser()
+    {
+        $users = \App\Models\User::paginate(25);
+        return response()->json($users);
     }
 }
