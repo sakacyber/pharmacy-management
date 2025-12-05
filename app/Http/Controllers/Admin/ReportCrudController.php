@@ -3,24 +3,32 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ReportRequest;
+use App\Models\Report;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
+use Backpack\ReviseOperation\ReviseOperation;
 
 /**
  * Class ReportCrudController
  *
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class ReportCrudController extends CrudController
 {
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\ReviseOperation\ReviseOperation;
-    
+    use CreateOperation;
+    use DeleteOperation;
+    use ListOperation;
+    use ReviseOperation;
+    use ShowOperation;
+    use UpdateOperation;
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      *
@@ -28,7 +36,7 @@ class ReportCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Report::class);
+        CRUD::setModel(Report::class);
         CRUD::setRoute(config('backpack.base.route_prefix').'/report');
         CRUD::setEntityNameStrings('report', 'reports');
     }
@@ -48,13 +56,13 @@ class ReportCrudController extends CrudController
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
 
-         // dynamic data to render in the following widget
-        $count = \App\Models\Report::count();
+        // dynamic data to render in the following widget
+        $count = Report::count();
 
-        //add div row using 'div' widget and make other widgets inside it to be in a row
+        // add div row using 'div' widget and make other widgets inside it to be in a row
         Widget::add()->to('before_content')->type('div')->class('row')->content([
 
-            //widget made using fluent syntax
+            // widget made using fluent syntax
             Widget::make()
                 ->type('progress')
                 ->class('card border-0 text-white bg-primary')
@@ -64,7 +72,7 @@ class ReportCrudController extends CrudController
                 ->progress(100 * (int) $count / 100)
                 ->hint(100 - $count.' more until next milestone.'),
 
-            //widget made using the array definition
+            // widget made using the array definition
             Widget::make(
                 [
                     'type' => 'card',
@@ -72,7 +80,7 @@ class ReportCrudController extends CrudController
                     'wrapper' => ['class' => 'col-sm-3 col-md-3'],
                     'content' => [
                         'header' => 'Example Widget',
-                        'body' => 'Widget placed at "before_content" secion in same row',
+                        'body' => 'Widget placed at "before_content" section in same row',
                     ],
                 ]
             ),
@@ -93,7 +101,7 @@ class ReportCrudController extends CrudController
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']);
          */
     }
 

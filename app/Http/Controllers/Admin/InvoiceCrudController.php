@@ -3,25 +3,33 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\InvoiceRequest;
+use App\Models\Invoice;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Carbon\Carbon;
 use Backpack\CRUD\app\Library\Widget;
+use Backpack\ReviseOperation\ReviseOperation;
+use Carbon\Carbon;
 
 /**
  * Class InvoiceCrudController
  *
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class InvoiceCrudController extends CrudController
 {
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\ReviseOperation\ReviseOperation;
-    
+    use CreateOperation;
+    use DeleteOperation;
+    use ListOperation;
+    use ReviseOperation;
+    use ShowOperation;
+    use UpdateOperation;
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      *
@@ -29,7 +37,7 @@ class InvoiceCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Invoice::class);
+        CRUD::setModel(Invoice::class);
         CRUD::setRoute(config('backpack.base.route_prefix').'/invoice');
         CRUD::setEntityNameStrings('invoice', 'invoices');
     }
@@ -48,7 +56,6 @@ class InvoiceCrudController extends CrudController
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
-
         $this->crud->orderBy('date', 'desc');
 
         CRUD::column('#')->type('row_number');
@@ -75,44 +82,44 @@ class InvoiceCrudController extends CrudController
         $currentYear = date('Y');
 
         // Count users for the current month
-        $count = \App\Models\Invoice::whereMonth('date', $currentMonth)
-                    ->whereYear('date', $currentYear)
-                    ->count();
+        $count = Invoice::whereMonth('date', $currentMonth)
+            ->whereYear('date', $currentYear)
+            ->count();
 
         $firstDayOfLastMonth = now()->subMonth()->startOfMonth();
 
         // Get the date for the last day of the previous month
         $lastDayOfLastMonth = now()->subMonth()->endOfMonth();
-        $countLastMonth = \App\Models\Invoice::whereBetween('date', [$firstDayOfLastMonth, $lastDayOfLastMonth])
-                ->count();
+        $countLastMonth = Invoice::whereBetween('date', [$firstDayOfLastMonth, $lastDayOfLastMonth])
+            ->count();
 
-        //add div row using 'div' widget and make other widgets inside it to be in a row
+        // add div row using 'div' widget and make other widgets inside it to be in a row
         Widget::add()
-        ->to('before_content')
-        ->type('div')
-        ->class('row')
-        ->content([
+            ->to('before_content')
+            ->type('div')
+            ->class('row')
+            ->content([
 
-            //widget made using fluent syntax
-            Widget::make()
-                ->type('progress_white')
-                ->class('card border-0')
-                ->progressClass('progress-bar bg-primary')
-                ->value($count)
-                ->description('Invoice generated this month.')
-                ->progress(100 * (int) $count / 100)
-                ->hint(100 - $count.' more until next milestone.'),
+                // widget made using fluent syntax
+                Widget::make()
+                    ->type('progress_white')
+                    ->class('card border-0')
+                    ->progressClass('progress-bar bg-primary')
+                    ->value($count)
+                    ->description('Invoice generated this month.')
+                    ->progress(100 * (int) $count / 100)
+                    ->hint(100 - $count.' more until next milestone.'),
 
-            //widget made using fluent syntax
-            Widget::make()
-            ->type('progress_white')
-            ->class('card border-0')
-            ->progressClass('progress-bar bg-primary')
-            ->value($countLastMonth)
-            ->description('Invoice generated last month.')
-            ->progress(100 * (int) $countLastMonth / 100)
-            ->hint(100 - $countLastMonth.' more until next milestone.'),
-        ]);
+                // widget made using fluent syntax
+                Widget::make()
+                    ->type('progress_white')
+                    ->class('card border-0')
+                    ->progressClass('progress-bar bg-primary')
+                    ->value($countLastMonth)
+                    ->description('Invoice generated last month.')
+                    ->progress(100 * (int) $countLastMonth / 100)
+                    ->hint(100 - $countLastMonth.' more until next milestone.'),
+            ]);
     }
 
     /**
@@ -129,7 +136,7 @@ class InvoiceCrudController extends CrudController
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']);
          */
         $currentTimestamp = Carbon::now('Asia/Phnom_Penh');
         CRUD::field('invoice_no')->value($currentTimestamp->timestamp);
@@ -189,8 +196,10 @@ class InvoiceCrudController extends CrudController
         );
     }
 
-    public function viewInvoice($id){
-        $invoice = \App\Models\Invoice::find($id);
-        return view('invoice', ['invoice'=>$invoice]);
+    public function viewInvoice($id)
+    {
+        $invoice = Invoice::find($id);
+
+        return view('invoice', ['invoice' => $invoice]);
     }
 }

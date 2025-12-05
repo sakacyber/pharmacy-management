@@ -15,8 +15,8 @@ Route::group([
         (array) config('backpack.base.middleware_key', 'admin')
     ),
     'namespace' => 'App\Http\Controllers\Admin',
-], function () { 
-    
+], function () {
+
     // custom admin routes
     Route::crud('user', 'UserCrudController');
     Route::crud('patient', 'PatientCrudController');
@@ -29,5 +29,5 @@ Route::group([
     // custom
     Route::get('invoice/{id}/view', 'InvoiceCrudController@viewInvoice');
     Route::get('dashboard', 'DashboardController@index');
-    
+
 }); // this should be the absolute last line of this file

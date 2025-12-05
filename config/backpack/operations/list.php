@@ -62,5 +62,26 @@ return [
     // Setting this to false will improve performance on big datasets.
     'showEntryCount' => true,
 
-    // 'lineButtonsAsDropdown' => true,
+    // Stack buttons can be converted into a dropdown to improve the available table space.
+    'lineButtonsAsDropdown' => true,
+
+    // when list operation load the information from database, should Backpack eager load the relations ?
+    // this setting is enabled by default as it reduces the amount of queries required to load the page
+    'eagerLoadRelationships' => true,
+
+    // What is the minimum actions for the dropdown to be created
+    // Example: when minimum to drop is «2»,  any row with less than «2» action buttons
+    // will not create a dropdown, but will show the buttons inline
+    'lineButtonsAsDropdownMinimum' => 1,
+
+    // Force «X» actions to be shown inline before the dropdown is created
+    // Example: when setting this to «2», the first «2» actions will be shown inline
+    // and the rest will be moved to the dropdown
+    'lineButtonsAsDropdownShowBefore' => 0,
+
+    // how much time should the system wait before triggering the search function after the user stops typing?
+    'searchDelay' => 400,
+
+    // should we use a fixed header for the datatables?
+    'useFixedHeader' => true,
 ];

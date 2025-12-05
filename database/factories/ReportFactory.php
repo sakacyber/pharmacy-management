@@ -22,7 +22,8 @@ class ReportFactory extends Factory
         return [
             'from_date' => $this->faker->date(),
             'to_date' => $this->faker->date(),
-            'content' => $this->faker->paragraphs(3, true),
+            'content' => $this->faker->paragraphs(1, true),
+            'report_type' => $this->faker->randomElement(['daily', 'weekly', 'monthly']),
         ];
     }
 }

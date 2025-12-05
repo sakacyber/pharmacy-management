@@ -3,25 +3,33 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\PatientRequest;
+use App\Models\Patient;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Carbon\Carbon;
 use Backpack\CRUD\app\Library\Widget;
+use Backpack\ReviseOperation\ReviseOperation;
+use Carbon\Carbon;
 
 /**
  * Class PatientCrudController
  *
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class PatientCrudController extends CrudController
 {
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\ReviseOperation\ReviseOperation;
-    
+    use CreateOperation;
+    use DeleteOperation;
+    use ListOperation;
+    use ReviseOperation;
+    use ShowOperation;
+    use UpdateOperation;
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      *
@@ -29,7 +37,7 @@ class PatientCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Patient::class);
+        CRUD::setModel(Patient::class);
         CRUD::setRoute(config('backpack.base.route_prefix').'/patient');
         CRUD::setEntityNameStrings('patient', 'patients');
     }
@@ -48,8 +56,7 @@ class PatientCrudController extends CrudController
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
-
-         $this->crud->orderBy('enter_date', 'desc');
+        $this->crud->orderBy('enter_date', 'desc');
 
         CRUD::column('#')->type('row_number');
         CRUD::column('name');
@@ -68,9 +75,9 @@ class PatientCrudController extends CrudController
         $currentYear = date('Y');
 
         // Count users for the current month
-        $count = \App\Models\Patient::whereMonth('enter_date', $currentMonth)
-                    ->whereYear('enter_date', $currentYear)
-                    ->count();
+        $count = Patient::whereMonth('enter_date', $currentMonth)
+            ->whereYear('enter_date', $currentYear)
+            ->count();
 
         // Count users for the previous month
         // Get the date for the first day of the previous month
@@ -78,36 +85,36 @@ class PatientCrudController extends CrudController
 
         // Get the date for the last day of the previous month
         $lastDayOfLastMonth = now()->subMonth()->endOfMonth();
-        $countLastMonth = \App\Models\Patient::whereBetween('enter_date', [$firstDayOfLastMonth, $lastDayOfLastMonth])
-                ->count();
+        $countLastMonth = Patient::whereBetween('enter_date', [$firstDayOfLastMonth, $lastDayOfLastMonth])
+            ->count();
 
-        //add div row using 'div' widget and make other widgets inside it to be in a row
+        // add div row using 'div' widget and make other widgets inside it to be in a row
         Widget::add()
-        ->to('before_content')
-        ->type('div')
-        ->class('row')
-        ->content([
+            ->to('before_content')
+            ->type('div')
+            ->class('row')
+            ->content([
 
-            //widget made using fluent syntax
-            Widget::make()
-                ->type('progress_white')
-                ->class('card')
-                ->value($count)
-                ->description('New patients this month')
-                ->progress(100 * (int) $count / 100)
-                ->progressClass('progress-bar bg-primary')
-                ->hint(100 - $count.' more until next milestone.'),
+                // widget made using fluent syntax
+                Widget::make()
+                    ->type('progress_white')
+                    ->class('card')
+                    ->value($count)
+                    ->description('New patients this month')
+                    ->progress(100 * (int) $count / 100)
+                    ->progressClass('progress-bar bg-primary')
+                    ->hint(100 - $count.' more until next milestone.'),
 
-            //widget made using the array definition
-            Widget::make()
-                ->type('progress_white')
-                ->class('card')
-                ->value($countLastMonth)
-                ->description('New patients last month')
-                ->progress(100 * (int) $countLastMonth / 100)
-                ->progressClass('progress-bar bg-primary')
-                ->hint(100 - $countLastMonth.' more until next milestone.'),
-        ]);
+                // widget made using the array definition
+                Widget::make()
+                    ->type('progress_white')
+                    ->class('card')
+                    ->value($countLastMonth)
+                    ->description('New patients last month')
+                    ->progress(100 * (int) $countLastMonth / 100)
+                    ->progressClass('progress-bar bg-primary')
+                    ->hint(100 - $countLastMonth.' more until next milestone.'),
+            ]);
     }
 
     /**
@@ -124,7 +131,7 @@ class PatientCrudController extends CrudController
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']);
          */
         $currentTimestamp = Carbon::now('Asia/Phnom_Penh');
 

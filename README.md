@@ -10,7 +10,8 @@ The Pharmacy Management System also includes a customer management module that a
 
 ## Installation
 
-``` 
+```
+composer install
 php artisan key:generate
 php artisan migrate
 php artisan db:seed

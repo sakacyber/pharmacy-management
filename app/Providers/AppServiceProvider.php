@@ -27,10 +27,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $config = [];
         if (config('settings.skin')) {
-            $config['backpack.base.skin'] = config('settings.skin');
+            $config['backpack.ui.skin'] = config('settings.skin');
         }
         if (config('settings.show_powered_by')) {
-            $config['backpack.base.show_powered_by'] = config('settings.show_powered_by') == '1';
+            $config['backpack.ui.show_powered_by'] = config('settings.show_powered_by') == '1';
         }
         config($config);
     }

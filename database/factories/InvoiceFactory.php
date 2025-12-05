@@ -29,6 +29,7 @@ class InvoiceFactory extends Factory
             'note' => $this->faker->word,
             'header' => $this->faker->word,
             'footer' => $this->faker->word,
+            'content' => $this->faker->paragraphs(1, true),
         ];
     }
 }

@@ -15,10 +15,9 @@ class User extends Authenticatable
 {
     use CrudTrait;
     use HasApiTokens, HasFactory, Notifiable;
-    use RevisionableTrait;
     use HasRoles;
-    use \Venturecraft\Revisionable\RevisionableTrait;
-    
+    use RevisionableTrait;
+
     /**
      * The attributes that are mass assignable.
      *

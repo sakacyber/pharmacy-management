@@ -7,6 +7,9 @@
  */
 
 return [
+    // Which component to use for displaying the Show page?
+    'component' => 'bp-datagrid', // options: bp-datagrid, bp-datalist, or a custom component alias
+
     // Define the size/looks of the content div for all CRUDs
     // To override per Controller use $this->crud->setShowContentClass('class-string')
     'contentClass' => 'col-md-8',
@@ -21,4 +24,9 @@ return [
     // soft deleted items & add a deleted_at column to ShowOperation?
     'softDeletes' => true,
 
+    // Enable to group columns in tabs
+    'tabsEnabled' => false,
+
+    // When using tabbed forms (create & update), what kind of tabs would you like?
+    'tabsType' => 'horizontal', // options: horizontal, vertical
 ];

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->string('invoice_no')->autoIncrement();
-            $table->dateTime('date');
+            $table->dateTime('date')->default(now());
             $table->integer('tax')->default(0);
             $table->integer('discount')->default(0);
             $table->integer('total');
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('note')->nullable();
             $table->string('header')->nullable();
             $table->string('footer')->nullable();
-            $table->string('content');
+            $table->string('content')->nullable();
             $table->timestamps();
         });
     }

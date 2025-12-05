@@ -6,13 +6,14 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class Patient extends Model implements Auditable
 {
     use CrudTrait;
     use HasFactory;
-    use \Venturecraft\Revisionable\RevisionableTrait;
     use \OwenIt\Auditing\Auditable;
+    use RevisionableTrait;
 
     /**
      * The attributes that are mass assignable.

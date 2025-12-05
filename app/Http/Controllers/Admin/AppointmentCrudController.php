@@ -3,24 +3,32 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\AppointmentRequest;
+use App\Models\Appointment;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
+use Backpack\ReviseOperation\ReviseOperation;
 
 /**
  * Class AppointmentCrudController
  *
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class AppointmentCrudController extends CrudController
 {
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\ReviseOperation\ReviseOperation;
-    
+    use CreateOperation;
+    use DeleteOperation;
+    use ListOperation;
+    use ReviseOperation;
+    use ShowOperation;
+    use UpdateOperation;
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      *
@@ -28,7 +36,7 @@ class AppointmentCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Appointment::class);
+        CRUD::setModel(Appointment::class);
         CRUD::setRoute(config('backpack.base.route_prefix').'/appointment');
         CRUD::setEntityNameStrings('appointment', 'appointments');
 
@@ -57,12 +65,12 @@ class AppointmentCrudController extends CrudController
         CRUD::column('description');
 
         // dynamic data to render in the following widget
-        $userCount = \App\Models\Appointment::count();
+        $userCount = Appointment::count();
 
-        //add div row using 'div' widget and make other widgets inside it to be in a row
+        // add div row using 'div' widget and make other widgets inside it to be in a row
         Widget::add()->to('before_content')->type('div')->class('row')->content([
 
-            //widget made using fluent syntax
+            // widget made using fluent syntax
             Widget::make()
                 ->type('progress')
                 ->class('card border-0 text-white bg-primary')
@@ -72,7 +80,7 @@ class AppointmentCrudController extends CrudController
                 ->progress(100 * (int) $userCount / 100)
                 ->hint(100 - $userCount.' more until next milestone.'),
 
-            //widget made using the array definition
+            // widget made using the array definition
             Widget::make(
                 [
                     'type' => 'card',
@@ -80,7 +88,7 @@ class AppointmentCrudController extends CrudController
                     'wrapper' => ['class' => 'col-sm-3 col-md-3'],
                     'content' => [
                         'header' => 'Example Widget',
-                        'body' => 'Widget placed at "before_content" secion in same row',
+                        'body' => 'Widget placed at "before_content" section in same row',
                     ],
                 ]
             ),
@@ -101,9 +109,8 @@ class AppointmentCrudController extends CrudController
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']);
          */
-
         CRUD::field('date')->type('date');
         CRUD::field('doctor');
         CRUD::field('patient');

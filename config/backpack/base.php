@@ -4,179 +4,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Look & feel customizations
-    |--------------------------------------------------------------------------
-    |
-    | Make it yours.
-    |
-    */
-
-    // Date & Datetime Format Syntax: https://carbon.nesbot.com/docs/#api-localization
-    'default_date_format' => 'DD MMM YYYY',
-    'default_datetime_format' => 'DD MMM YYYY, HH:mm',
-
-    // Direction, according to language
-    // (left-to-right vs right-to-left)
-    'html_direction' => 'ltr',
-
-    // ----
-    // HEAD
-    // ----
-
-    // Project name. Shown in the window title.
-    'project_name' => 'Pharmacy Management',
-
-    // When clicking on the admin panel's top-left logo/name,
-    // where should the user be redirected?
-    // The string below will be passed through the url() helper.
-    // - default: '' (project root)
-    // - alternative: 'admin' (the admin's dashboard)
-    'home_link' => '',
-
-    // Content of the HTML meta robots tag to prevent indexing and link following
-    'meta_robots_content' => 'noindex, nofollow',
-
-    // ---------
-    // DASHBOARD
-    // ---------
-
-    // Show "Getting Started with Backpack" info block?
-    // 'show_getting_started' => env('APP_ENV') == 'local',
-    'show_getting_started' => false,
-
-    // ------
-    // STYLES
-    // ------
-
-    // CSS files that are loaded in all pages, using Laravel's asset() helper
-    'styles' => [
-        'packages/backpack/base/css/bundle.css', // has primary color electric purple (backpack default)
-        // 'packages/backpack/base/css/blue-bundle.css', // has primary color blue
-
-        // Here's what's inside the bundle:
-        // 'packages/@digitallyhappy/backstrap/css/style.min.css',
-        // 'packages/animate.css/animate.min.css',
-        // 'packages/noty/noty.css',
-
-        // Load the fonts separately (so that you can replace them at will):
-        'packages/source-sans-pro/source-sans-pro.css',
-        'packages/line-awesome/css/line-awesome.min.css',
-
-        // Example (the fonts above, loaded from CDN instead)
-        // 'https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome-font-awesome.min.css',
-        // 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic',
-
-        // Example (load font-awesome instead of line-awesome):
-        // 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css',
-    ],
-
-    // CSS files that are loaded in all pages, using Laravel's mix() helper
-    'mix_styles' => [ // file_path => manifest_directory_path
-        // 'css/app.css' => '',
-    ],
-
-    // CSS files that are loaded in all pages, using Laravel's @vite() helper
-    // Please note that support for Vite was added in Laravel 9.19. Earlier versions are not able to use this feature.
-    'vite_styles' => [ // resource file_path
-        // 'resources/css/app.css' => '',
-    ],
-
-    // ------
-    // HEADER
-    // ------
-
-    // Menu logo. You can replace this with an <img> tag if you have a logo.
-    'project_logo' => '<b>My Pharmacy</b>',
-
-    // Show / hide breadcrumbs on admin panel pages.
-    'breadcrumbs' => true,
-
-    // Horizontal navbar classes. Helps make the admin panel look similar to your project's design.
-    'header_class' => 'app-header bg-light border-0 navbar',
-    // For background colors use: bg-dark, bg-primary, bg-secondary, bg-danger, bg-warning, bg-success, bg-info, bg-blue, bg-light-blue, bg-indigo, bg-purple, bg-pink, bg-red, bg-orange, bg-yellow, bg-green, bg-teal, bg-cyan, bg-white
-    // For links to be visible on different background colors use: "navbar-dark", "navbar-light", "navbar-color"
-
-    // Skin color
-    //
-    'skin' => 'skin-blue',
-
-    // ----
-    // BODY
-    // ----
-
-    // Body element classes.
-    'body_class' => 'app aside-menu-fixed sidebar-lg-show',
-    // Try sidebar-hidden, sidebar-fixed, sidebar-compact, sidebar-lg-show
-
-    // Sidebar element classes.
-    'sidebar_class' => 'sidebar sidebar-pills bg-light',
-    // Remove "sidebar-transparent" for standard sidebar look
-    // Try "sidebar-light" or "sidebar-dark" for dark/light links
-    // You can also add a background class like bg-dark, bg-primary, bg-secondary, bg-danger, bg-warning, bg-success, bg-info, bg-blue, bg-light-blue, bg-indigo, bg-purple, bg-pink, bg-red, bg-orange, bg-yellow, bg-green, bg-teal, bg-cyan
-
-    // ------
-    // FOOTER
-    // ------
-
-    // Footer element classes.
-    'footer_class' => 'app-footer d-print-none',
-    // hide it with d-none
-    // change background color with bg-dark, bg-primary, bg-secondary, bg-danger, bg-warning, bg-success, bg-info, bg-blue, bg-light-blue, bg-indigo, bg-purple, bg-pink, bg-red, bg-orange, bg-yellow, bg-green, bg-teal, bg-cyan, bg-white
-
-    // Developer or company name. Shown in footer.
-    'developer_name' => 'Saka Developer',
-
-    // Developer website. Link in footer. Type false if you want to hide it.
-    'developer_link' => 'http://github.com/sakacyber',
-
-    // Show powered by Laravel Backpack in the footer? true/false
-    'show_powered_by' => false,
-
-    // -------
-    // SCRIPTS
-    // -------
-
-    // JS files that are loaded in all pages, using Laravel's asset() helper
-    'scripts' => [
-        // Backstrap includes jQuery, Bootstrap, CoreUI, PNotify, Popper
-        'packages/backpack/base/js/bundle.js',
-
-        // examples (everything inside the bundle, loaded from CDN)
-        // 'https://code.jquery.com/jquery-3.4.1.min.js',
-        // 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js',
-        // 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js',
-        // 'https://unpkg.com/@coreui/coreui@2.1.16/dist/js/coreui.min.js',
-        // 'https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
-        // 'https://unpkg.com/sweetalert/dist/sweetalert.min.js',
-        // 'https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js'
-
-        // examples (VueJS or React)
-        // 'https://unpkg.com/vue@2.4.4/dist/vue.min.js',
-        // 'https://unpkg.com/react@16/umd/react.production.min.js',
-        // 'https://unpkg.com/react-dom@16/umd/react-dom.production.min.js',
-    ],
-
-    // JS files that are loaded in all pages, using Laravel's mix() helper
-    'mix_scripts' => [ // file_path => manifest_directory_path
-        // 'js/app.js' => '',
-    ],
-
-    // JS files that are loaded in all pages, using Laravel's @vite() helper
-    'vite_scripts' => [ // resource file_path
-        // 'resources/js/app.js',
-    ],
-
-    // -------------
-    // CACHE-BUSTING
-    // -------------
-
-    // All JS and CSS assets defined above have this string appended as query string (?v=string).
-    // If you want to manually trigger cachebusting for all styles and scripts,
-    // append or prepend something to the string below, so that it's different.
-    'cachebusting_string' => \PackageVersions\Versions::getVersion('backpack/crud'),
-
-    /*
-    |--------------------------------------------------------------------------
     | Registration Open
     |--------------------------------------------------------------------------
     |
@@ -201,7 +28,7 @@ return [
 
     // The web middleware (group) used in all base & CRUD routes
     // If you've modified your "web" middleware group (ex: removed sessions), you can use a different
-    // route group, that has all the the middleware listed below in the comments.
+    // route group, that has all the middleware listed below in the comments.
     'web_middleware' => 'web',
     // Or you can comment the above, and uncomment the complete list below.
     // 'web_middleware' => [
@@ -213,7 +40,7 @@ return [
     // ],
 
     // Set this to false if you would like to use your own AuthController and PasswordController
-    // (you then need to setup your auth routes manually in your routes.php file)
+    // (you then need to set up your auth routes manually in your routes.php file)
     // Warning: if you disable this, the password recovery routes (below) will be disabled too!
     'setup_auth_routes' => true,
 
@@ -246,7 +73,7 @@ return [
     'password_recovery_token_expiration' => 60, // time in minutes
 
     // Backpack will prevent an IP from trying to reset the password too many times,
-    // so that a malicious actor cannot try too many emails, too see if they have
+    // so that a malicious actor cannot try too many emails, to see if they have
     // accounts or to increase the AWS/SendGrid/etc bill.
     //
     // How many times in any given time period should the user be allowed to
@@ -310,36 +137,13 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Theme (User Interface)
-    |--------------------------------------------------------------------------
-    */
-    // Change the view namespace in order to load a different theme than the one Backpack provides.
-    // You can create child themes yourself, by creating a view folder anywhere in your resources/views
-    // and choosing that view_namespace instead of the default one. Backpack will load a file from there
-    // if it exists, otherwise it will load it from the default namespace ("backpack::").
-
-    'view_namespace' => 'backpack::',
-
-    // EXAMPLE: if you create a new folder in resources/views/vendor/myname/mypackage,
-    // your namespace would be the one below. IMPORTANT: in this case the namespace ends with a dot.
-    // 'view_namespace' => 'vendor.myname.mypackage.',
-
-    // Tell Backpack to look in more places for component views (like widgets)
-    'component_view_namespaces' => [
-        'widgets' => [
-            'backpack::widgets', // falls back to 'resources/views/vendor/backpack/base/widgets'
-        ],
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | File System
     |--------------------------------------------------------------------------
     */
 
     // Backpack\Base sets up its own filesystem disk, just like you would by
     // adding an entry to your config/filesystems.php. It points to the root
-    // of your project and it's used throughout all Backpack packages.
+    // of your project, and it's used throughout all Backpack packages.
     //
     // You can rename this disk here. Default: root
     'root_disk_name' => 'root',

@@ -3,23 +3,31 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\UserRequest;
+use App\Models\User;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
+use Backpack\ReviseOperation\ReviseOperation;
 
 /**
  * Class UserCrudController
  *
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class UserCrudController extends CrudController
 {
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\ReviseOperation\ReviseOperation;
+    use CreateOperation;
+    use DeleteOperation;
+    use ListOperation;
+    use ReviseOperation;
+    use ShowOperation;
+    use UpdateOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -28,8 +36,8 @@ class UserCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\User::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/user');
+        CRUD::setModel(User::class);
+        CRUD::setRoute(config('backpack.base.route_prefix').'/user');
         CRUD::setEntityNameStrings('user', 'users');
     }
 
@@ -47,21 +55,20 @@ class UserCrudController extends CrudController
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
-
         CRUD::column('#')->type('row_number');
         CRUD::column('name');
         CRUD::column('email');
 
         // dynamic data to render in the following widget
-        $count = \App\Models\User::count();
+        $count = User::count();
 
-        //add div row using 'div' widget and make other widgets inside it to be in a row
+        // add div row using 'div' widget and make other widgets inside it to be in a row
         Widget::add()
             ->to('before_content')
             ->type('div')
             ->class('row')
             ->content([
-                //widget made using fluent syntax
+                // widget made using fluent syntax
                 Widget::make()
                     ->type('progress')
                     ->class('card border-0 text-white bg-primary')
@@ -69,16 +76,16 @@ class UserCrudController extends CrudController
                     ->value($count)
                     ->description('User listed')
                     ->progress((100 * (int) $count) / 100)
-                    ->hint(100 - $count . ' more until next milestone.'),
+                    ->hint(100 - $count.' more until next milestone.'),
 
-                //widget made using the array definition
+                // widget made using the array definition
                 Widget::make([
                     'type' => 'card',
                     'class' => 'card bg-dark text-white',
                     'wrapper' => ['class' => 'col-sm-3 col-md-3'],
                     'content' => [
                         'header' => 'Example Widget',
-                        'body' => 'Widget placed at "before_content" secion in same row',
+                        'body' => 'Widget placed at "before_content" section in same row',
                     ],
                 ]),
             ]);
@@ -102,7 +109,7 @@ class UserCrudController extends CrudController
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']);
          */
     }
 

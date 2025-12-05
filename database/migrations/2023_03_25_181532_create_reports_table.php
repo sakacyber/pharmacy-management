@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->date('from_date');
             $table->date('to_date');
+            $table->string('report_type')->default('daily');
+            $table->string('content')->nullable();
             $table->timestamps();
         });
     }
